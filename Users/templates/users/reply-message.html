@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% load widget_tweaks %}
+{% block "content" %}
+<div class="container">
+<div class="row inbox-wrapper">
+    <div class="col-lg-12">
+      <div class="message-card">
+        <a class= "arrow" href="javascript:history.back()" ><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+        <div class="card-body">
+          <div class="row">              
+            <div class="col-lg-9 email-content">
+              <div class="email-head">
+                <div class="email-head-subject">
+                  <div class="title d-flex align-items-center justify-content-between">
+                    <div class="icons">
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="email-head-sender d-flex align-items-center justify-content-between flex-wrap">
+                  <div class="d-flex align-items-center">
+                    <div class="avatar">
+                      <img src="{{profile.profile_image.url}}" alt="Avatar" class="rounded-circle user-avatar-md">
+                    </div>
+                    <div class="sender d-flex align-items-center">
+                      <a href="">Me</a><span>to</span><a>{{profile.username}} </a>
+                        <div class="actions dropdown">
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div class="date"></div>
+                </div>
+                <hr>
+        <form method="POST">
+          {% csrf_token %}
+                <div class="email-head-sender d-flex align-items-center justify-content-between flex-wrap">
+                  <div class="d-flex align-items-center">
+                    <div class="sender d-flex align-items-center">
+              
+                      {{form.subject|attr:"class:form-control"|attr:"placeholder:Subject"}}
+                        
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="email-body">
+                {{form.body|attr:"class:form-control"|attr:"placeholder:Message"}}
+              </div>
+            </div>
+          </div>
+
+            <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock "content" %}

@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block "content" %}
+<!--===================================
+=            Store Section            =
+====================================-->
+<section class="section bg-gray">
+<h1 class="product-title" style="text-align: center; padding-bottom: 2rem">{{page}}</h1>
+	<!-- Container Start -->
+	<form  method="POST"  action="" enctype="multipart/form-data">
+	{% csrf_token %}
+	<div class="container">
+		<div class="row">
+			<!-- Left sidebar -->
+			<div class="col-md-8">
+				<div class="product-details">
+				{% for error in form.errors %}
+                                    <div class="alert alert--error">
+                                      <p class="alert__message">{{error}}</p>
+                                      <button class="alert__close">⨯</button>
+                                    </div>
+                {% endfor %}
+				{% for dict in ImageForm.errors %}
+					{% for error in dict.values %}
+                                    <div class="alert alert--error">
+                                      <p class="alert__message">{{error}}</p>
+                                    </div>
+					{% endfor %}
+                {% endfor %}
+			
+					<h1 class="product-title">Product name {{form.Product_name|add_class:"form-control"}}</h1>
+					<div class="product-meta">
+						<ul class="list-inline">
+							
+							<li class="list-inline-item"><i class="fa fa-folder-open-o"></i> Category {{form.category}}</li>
+							<li class="list-inline-item"><i class="fa fa-folder-open-o"></i> Subcategory {{form.subcategory}}</li>
+						</ul>
+					</div>
+
+					<!-- product slider -->
+					
+						<div class="product-slider-item my-4" >
+							<h4>Add images</h4>
+								<ul class="list-inline">
+								{{ ImageForm.management_form }}
+									{% for form in ImageForm %}
+									<li class="list-inline-item"><i class="fa fa-folder-open-o"></i> {{ form }}</li>
+									<hr>	
+									{% endfor %}
+									
+								</ul>
+						</div>
+					
+					<!-- product slider -->
+
+					<div class="content mt-5 pt-5">
+						<ul class="nav nav-pills  justify-content-center" id="pills-tab" role="tablist">
+							<li class="nav-item">
+								<a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home"
+								 aria-selected="true">Product Details</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile"
+								 aria-selected="false">Specifications</a>
+							</li>
+							
+						</ul>
+						<div class="tab-content" id="pills-tabContent">
+							<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+								<h3 class="tab-title">Short descrption</h3>
+								<p>{{form.Short_des|attr:"class :form-control"}}</p>
+
+								<h3 >Product Description</h3>
+								<p>{{form.Description|add_class:"form-control"}}</p>
+								
+								
+
+							</div>
+							<div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+								<h3 class="tab-title">Product Specifications</h3>
+								<table class="table table-bordered product-table">
+									<tbody>
+										
+										
+										<tr>
+											<td>State</td>
+											<td>{{form.city}}</td>
+										</tr>
+										<tr>
+											<td>Brand</td>
+											<td>{{form.Manufacturer}}</td>
+										</tr>
+										<tr>
+											<td>Condition</td>
+											<td>{{form.condition}}</td>
+										</tr>
+										<tr>
+											<td>Model</td>
+											<td>{{form.model}}</td>
+										</tr>
+										
+										
+									</tbody>
+								</table>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="sidebar">
+					<div class="widget price text-center">
+						<h4>Price</h4>
+						<p>{{form.price}}</p>
+					</div>
+					<!-- User Profile widget -->
+					
+					<!-- Map Widget -->
+					<div class="widget map">
+						<div class="map">
+							<div id="map_canvas" data-latitude="51.507351" data-longitude="-0.127758"></div>
+						</div>
+					</div>
+					<!-- Rate Widget -->
+
+					<!-- Safety tips widget -->
+					<div class="widget disclaimer">
+						<h5 class="widget-header">Safety Tips</h5>
+
+						<ul>
+							<li>Meet seller at a public place</li>
+							<li>Check the item before you buy</li>
+							<li>Pay only after collecting the item</li>
+							<li>Pay only after collecting the item</li>
+						</ul>
+					</div>
+
+					{% if page == "Create listing" %}
+					<input type="submit" name="submit" value="Submit" class="btn btn-transparent" >
+					{% else %}
+					<input type="submit" class="btn btn-transparent" value="Save">
+					{% endif %}	
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- Container End -->
+	</form>
+</section>
+
+
+{% endblock "content"%}

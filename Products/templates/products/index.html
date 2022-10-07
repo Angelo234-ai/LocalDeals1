@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+
+{% block "content" %}
+
+{% load static %}
+
+<!--===============================
+=            Hero Area            =
+================================-->
+{% load widget_tweaks %}
+<section class="hero-area bg-1 text-center overly">
+	<!-- Container Start -->
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<!-- Header Contetnt -->
+				<div class="content-block">
+					<h1>Buy & Sell Near You </h1>
+					<p>Join your neighboors who buy and sell from each other <br> everyday in local communities </p>
+					<div class="short-popular-category-list text-center">
+						
+					</div>
+					
+				</div>
+				<!-- Advance Search -->
+				<div class="advance-search">
+						<div class="container">
+							<div class="row justify-content-center">
+								<div class="col-lg-12 col-md-12 align-content-center">
+										<form method="GET" action="{% url 'Product-search' %}">
+											<div class="form-row">
+												<div class="form-group col-md-4">
+													{{filter.form.q}}
+												</div>
+												<div class="form-group col-md-3">
+													{{filter.form.category}}
+												</div>
+												<div class="form-group col-md-3">
+													{{filter.form.city}}
+												</div>
+												<div class="form-group col-md-2 align-self-center">
+													<button type="submit" class="btn btn-primary">Search Now</button>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<!-- Container End -->
+</section>
+
+<!--===================================
+=            Client Slider            =
+====================================-->
+
+
+<!--===========================================
+=            Popular deals section            =
+============================================-->
+
+<section class="popular-deals section bg-gray">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="section-title">
+					<h2>New Products</h2>
+					<p>The lastest prodcuts for sale!</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<!-- offer 01 -->
+			<div class="col-lg-12">
+				<div class="trending-ads-slide">
+		{% for product in products|slice:"10"  %}
+					<div class="col-sm-12 col-lg-4">
+						<!-- product card -->
+<div class="product-item bg-light">
+	<div class="product-card">
+		<div class="thumb-content">
+			<!-- <div class="price">$200</div> -->
+			<a href="{% url 'Product-detail' id=product.id%}">
+			{% for Image in product.Images.all|slice:"1"%}
+				<img class="card-img-top img-fluid" style="max-width: 700px ;max-height: 350px" src="{{Image.image.url}}"alt="Card image cap">
+			{% endfor %}
+			</a>
+		</div>
+		<div class="card-body">
+		    <h4 class="card-title"><a href="{% url 'Product-detail' id=product.id%}">{{product.Product_name}}</a></h4>
+		    <ul class="list-inline product-meta">
+		    	<li class="list-inline-item">
+		    		<a href="single.html"><i class="fa fa-folder-open-o"></i>{% for category in product.category.all %}{{category.Name}}{% endfor %}</a>
+		    	</li>
+		    	<li class="list-inline-item">
+		    		<a href="#"><i class="fa fa-calendar"></i>{{product.created}}</a>
+		    	</li>
+		    </ul>
+		    <p class="card-text">{{product.Short_des}}</p>
+		    <div class="product-ratings">
+		    	<ul class="list-inline">
+		    		<li class="list-inline-item selected"><i class="fa fa-star"></i></li>
+		    		<li class="list-inline-item selected"><i class="fa fa-star"></i></li>
+		    		<li class="list-inline-item selected"><i class="fa fa-star"></i></li>
+		    		<li class="list-inline-item selected"><i class="fa fa-star"></i></li>
+		    		<li class="list-inline-item"><i class="fa fa-star"></i></li>
+		    	</ul>
+		    </div>
+		</div>
+	</div>
+</div>
+
+
+
+					</div>
+		{% endfor %}
+
+
+					</div>
+				</div>
+			</div>
+			
+			
+		</div>
+	</div>
+</section>
+
+
+
+<!--==========================================
+=            All Category Section            =
+===========================================-->
+
+<section class=" section">
+	<!-- Container Start -->
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<!-- Section title -->
+				<div class="section-title">
+					<h2>All Categories</h2>
+					<p>Find exactly what you need by searching by subcategories</p>
+				</div>
+				<div class="row">
+					<!-- Category list -->
+					{% for category in Category_list %}
+					<div class="col-lg-3 offset-lg-0 col-md-5 offset-md-1 col-sm-6 col-6">
+						<div class="category-block">
+							<div class="header">
+								<i class="fa fa-laptop icon-bg-1"></i> 
+								<h4>{{category}}</h4>
+							</div>
+							<form  action="{% url 'Product-search' %}">
+								<ul class="category-list" >
+									{% for sub_cat in category.subcat.all %}
+										<li>
+										<button type="submit" class="sub_cat-button" name="subcategory" value={{ sub_cat.id }} >
+											{{sub_cat}}
+										</button>
+										<span>{{sub_cat.product.count}}</span>
+										</li>
+									{% endfor %}
+								</ul>
+							<form>
+						</div>
+					</div> <!-- /Category List -->
+					{% endfor %}
+					
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Container End -->
+</section>
+
+
+<!--====================================
+=            Call to Action            =
+=====================================-->
+
+<section class="call-to-action overly bg-3 section-sm">
+	<!-- Container Start -->
+	<div class="container">
+		<div class="row justify-content-md-center text-center">
+			<div class="col-md-8">
+				<div class="content-holder">
+					<h2>Start Today by selling your unused items in the Garage</h2>
+					<ul class="list-inline mt-30">
+						<li class="list-inline-item"><a class="btn btn-main" href="{% url 'Create-product' %}">Add Listing</a></li>
+						<li class="list-inline-item"><a class="btn btn-secondary" href="{% url 'Product-search' %}">Browser Listing</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Container End -->
+</section>
+
+{% endblock "content" %}
+
+
+
+

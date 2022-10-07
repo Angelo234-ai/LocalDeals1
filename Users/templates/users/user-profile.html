@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+
+{% block "content" %}
+<!--==================================
+=            User Profile            =
+===================================-->
+
+<section class="user-profile section">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10 offset-md-1 col-lg-3 offset-lg-0">
+				<div class="sidebar">
+					<!-- User Widget -->
+					<div class="widget user">
+						<!-- User Image -->
+						<div class="image d-flex justify-content-center">
+							<img src="{{profile.profile_image.url}}" alt="" class="">
+						</div>
+						<!-- User Name -->
+						<h5 class="text-center">{{profile.first_name}}</h5>
+            <p class="member-time text-center">Member Since </p>
+            <p class=" member-time text-center">{{profile.created|date:"d E Y" }}</P>
+					</div>
+					<!-- Dashboard Links -->
+					
+				</div>
+			</div>
+			<div class="col-md-10 offset-md-1 col-lg-9 offset-lg-0">
+				<!-- Profile products -->
+				<div class="widget welcome-message">
+					<h2>Items for Sale</h2>
+					<p>Items sold by this user</p>
+					<div class="ad-listing-list mt-20">
+								{% for product in profile.products.all %}
+							<div class="row p-lg-3 p-sm-5 p-4">
+								<div class="col-lg-4 align-self-center">
+									<a href="{% url 'Product-detail' id=product.id%}">
+									{% for image in product.Images.all|slice:"1" %}
+                    {% if image.image %}
+                      <img src="{{image.image.url}}" class="img-fluid" alt="">
+                    {% endif %}
+								  {% endfor %}
+										
+									</a>
+								</div>
+								<div class="col-lg-8">
+									<div class="row">
+										<div class="col-lg-6 col-md-10">
+											<div class="ad-listing-content">
+												<div>
+													<a href="{% url 'Product-detail' id=product.id%}" class="font-weight-bold">{{product.Product_name}}</a>
+												</div>
+												<ul class="list-inline mt-2 mb-3">
+													<li class="list-inline-item"><a href=""> <i class="fa fa-folder-open-o">{{product.category}}</i></a></li>
+													<li class="list-inline-item"><a href=""><i class="fa fa-calendar"></i>{{product.created}}</a></li>
+												</ul>
+												<p class="pr-5">{{product.Short_des}}</p>
+											</div>
+										</div>
+										<div class="col-lg-6 align-self-center">
+											<div class="product-ratings float-lg-right pb-3">
+												<ul class="list-inline">
+													<li class="list-inline-item selected"><i class="fa fa-star"></i></li>
+													<li class="list-inline-item selected"><i class="fa fa-star"></i></li>
+													<li class="list-inline-item selected"><i class="fa fa-star"></i></li>
+													<li class="list-inline-item selected"><i class="fa fa-star"></i></li>
+													<li class="list-inline-item"><i class="fa fa-star"></i></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+						</div>
+								
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endblock "content" %}
+

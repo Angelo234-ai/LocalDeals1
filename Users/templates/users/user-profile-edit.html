@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+{% block "content" %}
+
+
+<!-- add 2 extra css classes to field element -->
+
+<!--==================================
+=            User Profile            =
+===================================-->
+
+<section class="user-profile section">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10 offset-md-1 col-lg-3 offset-lg-0">
+				<div class="sidebar">
+					<!-- User Widget -->
+					<div class="widget user">
+						<!-- User Image -->
+						<div class="image d-flex justify-content-center">
+							<img src="{{profile.profile_image.url}}" alt="" class="">
+						</div>
+						<!-- User Name -->
+						<h5 class="text-center">{{profile.first_name}}</h5>
+						<p class="member-time">Member Since {{profile.created}}</p>
+					</div>
+					<!-- Dashboard Links -->
+					
+				</div>
+			</div>
+			<div class="col-md-10 offset-md-1 col-lg-9 offset-lg-0">
+				<!-- Edit Profile Welcome Text -->
+				<div class="widget welcome-message">
+					<h2>Edit profile</h2>
+					<p>Please make sure to double check your personal info, and make sure to save create a strong a password</p>
+				</div>
+				<form method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
+				<!-- Edit Personal Info -->
+				<div class="row">
+					<div class="col-lg-6 col-md-6">
+						<div class="widget personal-info">
+							<h3 class="widget-header user">Edit Personal Information</h3>
+								<!-- First Name -->
+								<div class="form-group">
+									<label for="first-name">Username</label>
+									{{form.username|add_class:"form-control"}}
+								</div>
+								<div class="form-group">
+									<label for="first-name">First Name</label>
+									{{form.first_name|add_class:"form-control"}}
+								</div>
+								<!-- Last Name -->
+								<div class="form-group">
+									<label for="last-name">Last Name</label>
+									{{form.last_name|add_class:"form-control"}}
+								</div>
+								<!-- File chooser -->
+								<div class="form-group choose-file d-inline-flex" id="input-file">
+									<i class="fa fa-user text-center px-3"></i>
+									<p>{{form.profile_image}}</p>
+								 </div>
+								<!-- Comunity Name -->
+								<div class="form-group">
+									<label for="comunity-name">Location</label>
+									{{form.location|add_class:"form-control"}}
+								</div>
+								
+								<!-- Submit button -->
+								
+						</div>
+					</div>
+					
+					<div class="col-lg-6 col-md-6">
+						<!-- Change Email Address -->
+					<div class="widget change-email mb-0">
+						<h3 class="widget-header user">Edit Email Address</h3>
+						
+							
+							<!-- New email -->
+							<div class="form-group">
+								<label for="new-email">New email</label>
+								{{form.email|add_class:"form-control"}}
+							</div>
+							<!-- Submit Button -->
+							<input type="submit" class="btn btn-transparent" value="Update">
+					</div>
+					</div>
+				</div>
+				</form>
+			</div>
+			
+		</div>
+	</div>
+</section>
+
+{% endblock "content" %}

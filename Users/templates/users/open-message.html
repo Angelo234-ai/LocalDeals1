@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+
+{% block "content" %}
+<div class="container">
+<div class="row inbox-wrapper">
+    <div class="col-lg-12">
+      <div class="message-card">
+        <a class= "arrow" href="javascript:history.back()" ><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+        <div class="card-body">
+          <div class="row">              
+            <div class="col-lg-9 email-content">
+              <div class="email-head">
+                <div class="email-head-subject">
+                  <div class="title d-flex align-items-center justify-content-between">
+                    <div class="icons">
+                      <a class="active" href="{% url 'star-message' id=message.id %}"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star text-primary-muted"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span></a> 
+                      <a href="{% url 'trash-message' id=message.id %}?next={{request.path}}" class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash text-muted" data-toggle="tooltip" title="" data-original-title="Delete"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                      <a href="{% url 'reply-form' id=message.sender.id %}?next={{request.path}}" class="reply"><i class="fa fa-reply" style="font-size:18px"></i></a>
+                      
+                    </div>
+                  </div>
+                </div>
+                <div class="email-head-sender d-flex align-items-center justify-content-between flex-wrap">
+                  <div class="d-flex align-items-center">
+                    <div class="avatar">
+                      <img src="{{message.sender.profile_image.url}}" alt="Avatar" class="rounded-circle user-avatar-md">
+                    </div>
+                    <div class="sender d-flex align-items-center">
+                      <a href="{% url 'user-profile' id=message.sender.id %}">{{message.sender.username}} </a><span>to</span><a>{{message.recipient.username}}</a>
+                      <div class="actions dropdown">
+                        
+                      </div>
+                    </div>
+                  </div>
+                  <div class="date">{{message.created}}</div>
+                </div>
+              </div>
+              <div class="email-body">
+                {{message.body}}
+              </div>
+            </div>
+          </div>
+            
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock "content" %}
