@@ -10,9 +10,8 @@ Login Credentials:
 user= guest password = herokuapp1
 
 
-# LocalDeals1
-
-Running it localy 
+# Running it locally
+ 
 
 1. Pull the repository
 2. Build the docker image with `docker-compose -f local.yml build`
